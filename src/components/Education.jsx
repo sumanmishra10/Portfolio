@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
+import SectionHeading from './SectionHeading';
 
 const education = [
   {
@@ -22,38 +23,42 @@ const education = [
 
 const Education = () => {
   return (
-    <section id="education" className="py-24 relative overflow-hidden bg-white/5">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Educational <span className="text-primary">Background</span>
-          </h2>
-          <div className="h-1 w-20 bg-primary rounded-full mx-auto"></div>
-        </motion.div>
+    <section id="education" className="relative overflow-hidden border-y border-white/[0.06] bg-white/[0.02] py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Learning path" title="Educational" highlight="Background" />
 
-        <div className="space-y-6">
+        <div className="relative mt-4 space-y-6">
+          <div className="absolute bottom-0 left-[2.1rem] top-0 hidden w-px bg-gradient-to-b from-primary/40 via-white/10 to-transparent sm:block" />
+
           {education.map((edu, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={edu.degree}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-              className="glass p-6 md:p-8 rounded-2xl flex items-start gap-6 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-shadow border border-white/5 hover:border-primary/30"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: index * 0.15, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ x: 6 }}
+              className="glass shine relative flex items-start gap-6 rounded-2xl border border-white/[0.07] p-6 transition-colors duration-300 hover:border-primary/35 md:p-8"
             >
-              <div className="hidden sm:flex flex-shrink-0 w-14 h-14 rounded-full bg-primary/20 items-center justify-center border border-primary/30">
-                <GraduationCap className="text-primary" size={28} />
+              <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/15 sm:flex">
+                <GraduationCap className="text-primary" size={26} />
               </div>
-              <div>
-                <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">{edu.degree}</h3>
-                <h4 className="text-base md:text-lg font-medium text-text-muted mt-2">{edu.institution}</h4>
+
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="font-display text-lg font-bold tracking-tight text-white md:text-2xl">
+                    {edu.degree}
+                  </h3>
+                  <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+                    {edu.period}
+                  </span>
+                </div>
+                <h4 className="mt-2 text-sm font-medium text-text-muted md:text-base">{edu.institution}</h4>
               </div>
+
+              <span className="hidden font-mono text-xs text-text-muted/30 md:block">
+                0{index + 1}
+              </span>
             </motion.div>
           ))}
         </div>

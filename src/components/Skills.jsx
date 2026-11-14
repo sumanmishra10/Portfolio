@@ -1,160 +1,126 @@
-import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { GripVertical } from 'lucide-react';
+import SectionHeading from './SectionHeading';
 
-const initialSkills = {
-  frontend: {
-    id: 'frontend',
-    title: 'Frontend Development',
-    items: [
-      { id: 'item-1', content: 'React' },
-      { id: 'item-2', content: 'Tailwind CSS' },
-      { id: 'item-3', content: 'Vanilla Javascript' },
-      { id: 'item-4', content: 'HTML & CSS' },
-      { id: 'item-5', content: 'JQuery' },
-      { id: 'item-6', content: 'Flutter' },
-    ],
-  },
-  backend: {
-    id: 'backend',
-    title: 'Backend Development',
-    items: [
-      { id: 'item-7', content: 'ASP.NET Core/MVC' },
-      { id: 'item-8', content: 'C#' },
-      { id: 'item-9', content: 'REST APIs' },
-    ],
-  },
-  database: {
-    id: 'database',
-    title: 'Databases & Tools',
-    items: [
-      { id: 'item-10', content: 'MSSQL' },
-      { id: 'item-11', content: 'PostgreSQL' },
-      { id: 'item-12', content: 'IIS & Cloudflare' },
-      { id: 'item-13', content: 'VPS Hosting' },
-      { id: 'item-14', content: 'Git & TFS' },
-    ],
-  },
-};
+const stack = [
+  { name: 'C#', icon: '/assets/skills/csharp.svg' },
+  { name: '.NET', icon: '/assets/skills/dotnet.svg' },
+  { name: 'React', icon: '/assets/skills/react.svg' },
+  { name: 'JavaScript', icon: '/assets/skills/javascript.svg' },
+  { name: 'Tailwind CSS', icon: '/assets/skills/tailwind.svg' },
+  { name: 'Flutter', icon: '/assets/skills/flutter.svg' },
+  { name: 'SQL Server', icon: '/assets/skills/sqlserver.svg' },
+  { name: 'PostgreSQL', icon: '/assets/skills/postgresql.svg' },
+  { name: 'Git', icon: '/assets/skills/git.svg' },
+  { name: 'Cloudflare', icon: '/assets/skills/cloudflare.svg' },
+];
+
+const alsoUsing = [
+  'ASP.NET MVC',
+  'REST APIs',
+  'Background Services',
+  'Riverpod',
+  'Dio',
+  'Hive',
+  'jQuery',
+  'IIS / VPS',
+  'TFS',
+  'Workflow Automation',
+];
 
 const Skills = () => {
-  const [columns, setColumns] = useState(initialSkills);
-
-  const onDragEnd = (result, columns, setColumns) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
-
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...sourceColumn,
-          items: sourceItems,
-        },
-        [destination.droppableId]: {
-          ...destColumn,
-          items: destItems,
-        },
-      });
-    } else {
-      const column = columns[source.droppableId];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setColumns({
-        ...columns,
-        [source.droppableId]: {
-          ...column,
-          items: copiedItems,
-        },
-      });
-    }
-  };
-
   return (
-    <section id="skills" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 space-y-4"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-white">
-            Technical <span className="text-primary">Arsenal</span>
-          </h2>
-          <p className="text-text-muted mt-4 max-w-2xl mx-auto">
-            Interactive skill board. Drag and drop to reorganize my tech stack.
-          </p>
-        </motion.div>
+    <section id="skills" className="relative overflow-hidden py-24">
+      <div className="pointer-events-none absolute left-1/2 top-24 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-primary/[0.07] blur-[120px]" />
 
-        <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
-          <div className="grid md:grid-cols-3 gap-8">
-            {Object.entries(columns).map(([columnId, column], index) => {
-              return (
-                <motion.div
-                  key={columnId}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  className="glass p-6 rounded-3xl"
-                >
-                  <h3 className="text-xl font-semibold text-white mb-6 pl-2 border-l-4 border-primary">
-                    {column.title}
-                  </h3>
-                  <Droppable droppableId={columnId}>
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          className={`min-h-[200px] transition-colors rounded-xl p-2 ${
-                            snapshot.isDraggingOver ? 'bg-white/5' : ''
-                          }`}
-                        >
-                          {column.items.map((item, index) => {
-                            return (
-                              <Draggable key={item.id} draggableId={item.id} index={index}>
-                                {(provided, snapshot) => {
-                                  return (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className={`mb-3 p-4 rounded-xl flex items-center gap-3 active:cursor-grabbing backdrop-blur-md border transition-all ${
-                                        snapshot.isDragging
-                                          ? 'border-primary shadow-[0_0_15px_rgba(59,130,246,0.5)] bg-surface text-white z-50'
-                                          : 'border-white/10 bg-white/5 text-text-muted hover:text-white hover:border-white/20'
-                                      }`}
-                                      style={{ ...provided.draggableProps.style }}
-                                    >
-                                      <GripVertical className="opacity-40" size={18} />
-                                      <span className="font-medium tracking-wide">{item.content}</span>
-                                    </div>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
-                        </div>
-                      );
-                    }}
-                  </Droppable>
-                </motion.div>
-              );
-            })}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Toolbox"
+          title="What I"
+          highlight="Do"
+          subtitle="Three years of shipping production software — from database schema to mobile app. This is the stack I reach for every day."
+        />
+
+        <div className="mt-14 flex gap-8 xl:gap-12">
+          {/* Vertical section label */}
+          <div className="hidden shrink-0 flex-col items-center justify-center gap-5 xl:flex">
+            <span className="h-24 w-[3px] rounded-full bg-gradient-to-b from-primary to-transparent" />
+            <span
+              className="font-display text-sm font-bold uppercase text-white"
+              style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.55em' }}
+            >
+              Skills
+            </span>
+            <span className="h-24 w-[3px] rounded-full bg-gradient-to-t from-primary/60 to-transparent" />
           </div>
-        </DragDropContext>
+
+          {/* Logo grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5">
+              {stack.map((tech, index) => (
+                <motion.div
+                  key={tech.name}
+                  initial={{ opacity: 0, y: 26, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{
+                    duration: 0.55,
+                    delay: (index % 5) * 0.07 + Math.floor(index / 5) * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  whileHover={{ y: -7 }}
+                  className="group relative flex h-36 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.045] to-transparent transition-colors duration-300 hover:border-primary/45 sm:h-40"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.18),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+
+                  <img
+                    src={tech.icon}
+                    alt=""
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                    decoding="async"
+                    className="relative h-14 w-14 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.55)] transition-transform duration-300 group-hover:scale-110 sm:h-16 sm:w-16"
+                  />
+
+                  <span className="relative text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted transition-colors duration-300 group-hover:text-white sm:text-[11px]">
+                    {tech.name}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Supporting stack */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mt-10 border-t border-white/[0.08] pt-7"
+            >
+              <p className="text-center font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted/50">
+                Also in the toolbox
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                {alsoUsing.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] font-medium text-text-muted transition-colors duration-300 hover:border-primary/40 hover:text-white"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

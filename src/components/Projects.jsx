@@ -1,131 +1,187 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Database, Server, Smartphone, LayoutDashboard } from 'lucide-react';
+import { ExternalLink, Database, Server, Smartphone, LayoutDashboard, ArrowUpRight, Sparkles } from 'lucide-react';
+import TiltCard from './TiltCard';
+import SectionHeading from './SectionHeading';
+
+const featured = {
+  title: 'XmartCredit Mobile App',
+  description:
+    'A credit and loan-services mobile app built in Flutter: OTP login, task approvals, pre-approval and credit-card appraisal flows, site inspection with geolocation, and document upload.',
+  highlights: [
+    'Layered repository / view-model architecture',
+    'Token-expiry interception on every authenticated call',
+    'Offline caching with Hive for low-connectivity field work',
+  ],
+  tags: ['Flutter', 'Riverpod', 'Dio', 'Hive', 'Fintech'],
+  icon: Smartphone,
+};
 
 const projects = [
   {
     title: 'Loan Origination System',
-    description: 'Developed an ASP.NET MVC application with stored procedures and query optimization for loan processing workflows.',
-    tags: ['ASP.NET MVC', 'MSSQL', 'Stored Procedures', 'Optimization'],
+    description:
+      'Developed loan processing workflows and business functionality backed by stored procedures and query optimization.',
+    tags: ['ASP.NET MVC', 'C#', 'SQL Server'],
     icon: Database,
   },
   {
     title: 'Disbursement System',
-    description: 'Created a loan workflow application with status tracking automation to streamline the disbursement cycle.',
-    tags: ['Backend', 'Workflow Automation', 'UI tracking'],
+    description: 'Automated loan disbursement workflows with status tracking and stage-based business rules.',
+    tags: ['ASP.NET', 'C#', 'SQL Server'],
     icon: LayoutDashboard,
   },
   {
     title: 'Loan Public Portal',
-    description: 'Built a public-facing web application giving customers insight into their loan status and critical information.',
-    tags: ['Frontend', 'Responsive UI', 'Data Visualization'],
+    description: 'Built a public-facing portal that delivers loan status and information through secure backend APIs.',
+    tags: ['ASP.NET', 'REST APIs', 'SQL Server'],
     icon: Server,
   },
   {
     title: 'Hospital Management System',
-    description: 'Developed a Flutter-based HMS mobile application featuring patient and appointment modules along with a robust backend architecture.',
-    tags: ['Flutter', 'Mobile', 'API Integration', 'Healthcare'],
+    description: 'Developed patient and appointment management modules with API integration and state management.',
+    tags: ['Flutter', 'REST APIs', 'State Management'],
     icon: Smartphone,
   },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.14 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { type: 'spring', stiffness: 100 }
-  },
+  hidden: { opacity: 0, y: 44, scale: 0.96 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 90, damping: 18 } },
 };
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-24 relative">
-      {/* Decorative background gradients */}
-      <div className="absolute right-0 top-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 md:flex md:items-end md:justify-between space-y-4 md:space-y-0"
-        >
-          <div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Featured <span className="text-primary">Projects</span>
-            </h2>
-            <div className="h-1 w-20 bg-primary rounded-full"></div>
-            <p className="mt-6 text-text-muted max-w-2xl text-lg">
-              A selection of enterprise applications and mobile platforms I've architected and built.
-            </p>
-          </div>
-          
-          <a 
-            href="https://github.com/suman6mishra" 
-            target="_blank" 
+    <section id="projects" className="relative py-24">
+      <div className="pointer-events-none absolute right-0 top-1/4 h-96 w-96 rounded-full bg-primary/10 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHeading
+            align="left"
+            eyebrow="Selected work"
+            title="Featured"
+            highlight="Projects"
+            subtitle="Enterprise lending platforms and mobile products I've architected, built and shipped."
+          />
+
+          <motion.a
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            href="https://github.com/sumanmishra10"
+            target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-white transition-colors group"
+            className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-primary/50 hover:text-primary md:self-auto"
           >
-            View GitHub 
-            <ExternalLink size={18} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
-          </a>
+            View GitHub
+            <ExternalLink size={16} className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </motion.a>
+        </div>
+
+        {/* Featured project */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8"
+        >
+          <TiltCard className="glass shine overflow-hidden rounded-3xl border border-primary/25 p-7 sm:p-9" max={5}>
+            <div className="grid gap-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center">
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                  <Sparkles size={12} />
+                  Flagship build
+                </span>
+
+                <h3 className="font-display mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                  {featured.title}
+                </h3>
+                <p className="mt-3 max-w-xl leading-relaxed text-text-muted/90">{featured.description}</p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {featured.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative rounded-2xl border border-white/[0.07] bg-background/40 p-6">
+                <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-primary/20 blur-2xl" />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted/70">
+                  What I built
+                </span>
+                <ul className="mt-4 space-y-3">
+                  {featured.highlights.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm leading-relaxed text-text-muted/90">
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </TiltCard>
         </motion.div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid md:grid-cols-2 gap-8"
+          viewport={{ once: true, margin: '-60px' }}
+          className="grid gap-8 md:grid-cols-2"
         >
           {projects.map((project, index) => {
             const Icon = project.icon;
             return (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover={{ y: -10, transition: { duration: 0.2 } }}
-                className="glass p-8 rounded-3xl group border border-white/5 hover:border-primary/50 relative overflow-hidden h-full flex flex-col"
-              >
-                {/* Glow effect on hover */}
-                <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl blur" />
-                
-                <div className="relative z-10 flex-grow">
-                  <div className="w-14 h-14 rounded-2xl bg-surface border border-white/10 flex items-center justify-center mb-6 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
-                    <Icon className="text-primary" size={28} />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-text-muted/90 leading-relaxed mb-8">
-                    {project.description}
-                  </p>
-                </div>
-                
-                <div className="relative z-10 flex flex-wrap gap-2 mt-auto">
-                  {project.tags.map((tag, i) => (
-                    <span 
-                      key={i} 
-                      className="px-3 py-1 rounded-md text-xs font-semibold tracking-wider uppercase bg-white/5 text-text-muted border border-white/10 group-hover:border-primary/30 transition-colors"
+              <motion.div key={project.title} variants={cardVariants}>
+                <TiltCard className="glass shine h-full rounded-3xl border border-white/[0.07] p-8 transition-colors duration-500 hover:border-primary/40">
+                  <div className="flex items-start justify-between">
+                    <motion.div
+                      whileHover={{ rotate: -8, scale: 1.06 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                      className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-primary/10 transition-shadow duration-300 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.35)]"
                     >
-                      {tag}
+                      <Icon className="text-primary" size={26} />
+                    </motion.div>
+                    <span className="font-mono text-xs text-text-muted/40">
+                      {String(index + 2).padStart(2, '0')}
                     </span>
-                  ))}
-                </div>
+                  </div>
+
+                  <h3 className="font-display mt-6 flex items-center gap-2 text-2xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-primary">
+                    {project.title}
+                    <ArrowUpRight
+                      size={18}
+                      className="opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                    />
+                  </h3>
+
+                  <p className="mt-3 flex-grow leading-relaxed text-text-muted/90">{project.description}</p>
+
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted transition-colors duration-300 group-hover:border-primary/30 group-hover:text-white/90"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </TiltCard>
               </motion.div>
             );
           })}
