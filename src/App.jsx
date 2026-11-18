@@ -1,35 +1,39 @@
-import React from 'react';
-import Background from './components/Background';
+import React, { useEffect } from 'react';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
+import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Speaking from './components/Speaking';
-import Education from './components/Education';
-import Contact from './components/Contact';
+import Home from './pages/Home';
+import WorkPage from './pages/WorkPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import { usePath } from './router';
+
+const titles = {
+  '/': 'Suman Mishra — Software Engineer, .NET Full-Stack',
+  '/work': 'Work — Suman Mishra',
+  '/about': 'About — Suman Mishra',
+  '/contact': 'Contact — Suman Mishra',
+};
 
 function App() {
+  const path = usePath();
+
+  useEffect(() => {
+    document.title = titles[path] || titles['/'];
+  }, [path]);
+
+  let page = <Home />;
+  if (path === '/work') page = <WorkPage />;
+  else if (path === '/about') page = <AboutPage />;
+  else if (path === '/contact') page = <ContactPage />;
+
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-text">
-      <Background />
+    <div className="relative min-h-screen">
       <ScrollProgress />
+      <CustomCursor />
       <Navbar />
-      <main className="relative z-10">
-        <Hero />
-        <Marquee />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Speaking />
-        <Education />
-        <Contact />
-      </main>
+      <main>{page}</main>
       <BackToTop />
     </div>
   );

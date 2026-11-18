@@ -1,95 +1,108 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Landmark, Workflow, Gauge, Database } from 'lucide-react';
-import SectionHeading from './SectionHeading';
+import { ArrowUpRight } from 'lucide-react';
 import Counter from './Counter';
 
 const stats = [
-  { value: 3, suffix: '+', label: 'Years Full-Stack' },
-  { value: 5, suffix: '', label: 'Flagship Products' },
+  { value: 3, suffix: '+', label: 'Years building' },
+  { value: 5, suffix: '', label: 'Products shipped' },
   { value: 20, suffix: '+', label: 'Technologies' },
-  { text: 'Full', label: 'Stack Ownership' },
-];
-
-const highlights = [
-  { icon: Landmark, label: 'Banking Systems' },
-  { icon: Workflow, label: 'Workflow Automation' },
-  { icon: Gauge, label: 'Performance Tuning' },
-  { icon: Database, label: 'Multi-Database Design' },
 ];
 
 const About = () => {
   return (
-    <section id="about" className="relative overflow-hidden py-24">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Who I am" title="Professional" highlight="Summary" />
+    <section id="about" className="band-dark relative overflow-hidden py-20 sm:py-28">
+      <div className="mx-auto max-w-[1500px] px-5 sm:px-8">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="overflow-hidden rounded-t-[240px] border border-[color:var(--line)]">
+              <img
+                src="/assets/sumanp.png"
+                alt="Suman Mishra"
+                className="h-[380px] w-full object-cover object-top grayscale sm:h-[460px]"
+              />
+            </div>
+            <div className="label-xs mt-5 flex justify-between">
+              <span className="muted">Kathmandu, Nepal</span>
+              <span className="muted">Since 2023</span>
+            </div>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="glass mt-14 rounded-3xl p-8 md:p-14"
-        >
-          <div className="grid items-center gap-12 md:grid-cols-2">
-            <div className="space-y-6">
-              <p className="text-lg leading-relaxed text-text-muted">
-                I'm a Software Engineer with three years of full-stack experience in .NET, focused on enterprise banking
-                systems, workflow automation and database design. I've delivered loan origination, disbursement and
+          <div className="self-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="label flex items-center gap-4"
+            >
+              <span className="h-px w-10 bg-current opacity-40" />
+              About
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="display mt-6 text-[clamp(1.7rem,3.1vw,2.7rem)]"
+            >
+              I build complete products — the interface your customers touch, the systems behind it, and the
+              deployment that puts it online.
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="mt-7 space-y-4 text-[15px] leading-relaxed"
+            >
+              <p className="muted">
+                Software Engineer with three years of full-stack experience in .NET, focused on enterprise banking
+                systems, workflow automation and database design. I have delivered loan origination, disbursement and
                 customer portal platforms using C#, ASP.NET Core/MVC, React and SQL Server/PostgreSQL.
               </p>
-              <p className="text-lg leading-relaxed text-text-muted">
+              <p className="muted">
                 I care about the parts users never see: schema design, stored procedures, background and scheduling
-                services, and the query that has to stay fast at scale. I integrate REST APIs end to end and deploy on
-                IIS/VPS behind Cloudflare.
+                services, and the query that has to stay fast at scale. Fluent English, and available for remote work
+                with reliable overlap across UAE, EU and US time zones.
               </p>
+            </motion.div>
 
-              <div className="flex flex-wrap gap-2.5 pt-2">
-                {highlights.map(({ icon: Icon, label }) => (
-                  <span
-                    key={label}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-medium text-text-muted transition-colors hover:border-primary/40 hover:text-white"
-                  >
-                    <Icon size={14} className="text-primary" />
-                    {label}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2 pt-2 text-xs text-text-muted/70">
-                <span className="animate-pulse-dot h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                Open to remote contract or full-time roles with UAE, EU and US overlap.
-              </div>
-            </div>
-
-            <div className="relative grid grid-cols-2 gap-5">
-              <div className="absolute inset-0 rounded-full bg-primary/10 blur-[70px]" />
-
+            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-[color:var(--line)] pt-7">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 28 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.15 + index * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className={`glass relative rounded-2xl p-6 ${index % 2 === 1 ? 'mt-6' : ''}`}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
                 >
-                  <span className="absolute right-4 top-3 font-mono text-[10px] text-primary/40">
-                    0{index + 1}
-                  </span>
-                  <h3 className="font-display text-4xl font-black text-white">
-                    {stat.value !== undefined ? <Counter to={stat.value} suffix={stat.suffix} /> : stat.text}
-                  </h3>
-                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">
-                    {stat.label}
+                  <p className="display text-3xl sm:text-4xl">
+                    <Counter to={stat.value} suffix={stat.suffix} />
                   </p>
-                  <div className="mt-4 h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
+                  <p className="label-xs muted mt-2">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
+
+            <a
+              href="/assets/Suman_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="group mt-9 inline-flex items-center gap-2 border-b border-[color:var(--line)] pb-1 text-sm transition-colors hover:border-current"
+            >
+              Read the full CV
+              <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

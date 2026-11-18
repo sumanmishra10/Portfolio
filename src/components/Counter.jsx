@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { animate, useInView } from 'framer-motion';
 
-const Counter = ({ to, suffix = '', prefix = '', duration = 1.6, className = '' }) => {
+const Counter = ({ to, suffix = '', prefix = '', duration = 1.5, className = '' }) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-40px' });
   const [value, setValue] = useState(0);
 
   useEffect(() => {

@@ -6,7 +6,7 @@ const BackToTop = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 600);
+    const handleScroll = () => setVisible(window.scrollY > 700);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -19,14 +19,13 @@ const BackToTop = () => {
           type="button"
           aria-label="Back to top"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          initial={{ opacity: 0, scale: 0.6, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 20 }}
-          whileHover={{ y: -4 }}
-          whileTap={{ scale: 0.92 }}
-          className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-surface text-white shadow-[0_10px_40px_-10px_rgba(59,130,246,0.8)] backdrop-blur-md transition-colors hover:border-primary/60 hover:text-primary"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 16 }}
+          whileHover={{ y: -3 }}
+          className="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 bg-ink text-cream shadow-lg"
         >
-          <ArrowUp size={20} />
+          <ArrowUp size={16} />
         </motion.button>
       )}
     </AnimatePresence>
